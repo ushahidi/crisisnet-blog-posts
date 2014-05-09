@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 
 # Create a variable with your CrisisNET token.
-token = '532d8dc4ed3329652f114b73'
+token = '532d8dc4ed3329652f114b73' # REMOVE THIS BEFORE PUBLISHING
 
 # Setup the request headers.
 headers = {'Authorization': 'Bearer ' + token}
@@ -30,10 +30,10 @@ formattedURL = url % filters
 print(formattedURL)
 
 # Pull the data from CrisisNET.
-#r = requests.get(url, headers=headers)
+r = requests.get(url, headers=headers)
 
 # Check that the pull was successful.
-#print(r)
+print(r)
 
 # Convert the pull's JSON into a pandas dataframe.
 #df = pd.DataFrame(r.json())
