@@ -2,9 +2,11 @@
 # largely based on: http://www.slideshare.net/jeffreybreen/r-by-example-mining-twitter-for
 # uses the score.sentiment() found here: https://jeffreybreen.wordpress.com/tag/sentiment-analysis/
 
+# load ggplot2
 library(ggplot2)
 
-text = read.csv("/Users/chrisralbon/Dropbox (Ushahidi)/CrisisNET/comms/blog_posts/crisisnet_blog_posts/ushahidi_world.csv", header=TRUE)
+# load the ushahidi report data
+text = read.csv("/Users/chrisralbon/Dropbox (Ushahidi)/CrisisNET/comms/blog_posts/crisisnet_blog_posts/ushahidi_sentiment_140514/ushahidi_world.csv", header=TRUE)
 
 # create a score.sentiment function (kept original commenting since it is so good)
 score.sentiment = function(sentences, pos.words, neg.words, .progress='none')
@@ -55,17 +57,25 @@ pos.words <- scan("/Users/chrisralbon/cra/cra_projects/code_r/data/opinion-lexic
 # load Hu and Lui 2004's list of negative words
 neg.words <- scan("/Users/chrisralbon/cra/cra_projects/code_r/data/opinion-lexicon-English/negative-words.txt", what="character", comment.char=";")
 
-# create some simulated test data
-test <- c("I really hate it when you die like that. You suck.", "I love love love you", "Go to hell")
-
-# create a sentiment score for the test data
+# create a sentiment score for the data
 text.results <- score.sentiment(text$content, pos.words, neg.words)
 
-text.results <- subset(text.results, score >= -8 & score <= 8)
+# Count the number of reports with a positive score
+pos_reports = sum(text.results$score < 0); pos_reports
+
+# Count the number of reports with a negative score
+neg_reports = sum(text.results$score > 0); neg_reports
+
+# Remove reports with a zero score (since many are non-english language)
+text.results <- subset(text.results, score != 0)
+
+# Remove outliers
+text.results <- subset(text.results, score >= -10 & score <= 10)
 
 # view the results
 head(text.results)
 
+# Plot the results
 ggplot(data=text.results) + # ggplot works on data.frames, always
   geom_bar(mapping=aes(x=score), binwidth=1) + 
   theme_bw() + 
