@@ -66,6 +66,27 @@ pos_reports = sum(text.results$score < 0); pos_reports
 # Count the number of reports with a negative score
 neg_reports = sum(text.results$score > 0); neg_reports
 
+sum(text.results$score == 10)
+sum(text.results$score == 9)
+sum(text.results$score == 8)
+sum(text.results$score == 7)
+sum(text.results$score == 6)
+sum(text.results$score == 5)
+sum(text.results$score == 4)
+sum(text.results$score == 3)
+sum(text.results$score == 2)
+sum(text.results$score == 1)
+sum(text.results$score == -1)
+sum(text.results$score == -2)
+sum(text.results$score == -3)
+sum(text.results$score == -4)
+sum(text.results$score == -5)
+sum(text.results$score == -6)
+sum(text.results$score == -7)
+sum(text.results$score == -8)
+sum(text.results$score == -9)
+sum(text.results$score == -10)
+
 # Remove reports with a zero score (since many are non-english language)
 text.results <- subset(text.results, score != 0)
 
