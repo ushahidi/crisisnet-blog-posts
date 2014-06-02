@@ -66,6 +66,7 @@ pos_reports = sum(text.results$score < 0); pos_reports
 # Count the number of reports with a negative score
 neg_reports = sum(text.results$score > 0); neg_reports
 
+# View the number of reports with each score
 sum(text.results$score == 10)
 sum(text.results$score == 9)
 sum(text.results$score == 8)
